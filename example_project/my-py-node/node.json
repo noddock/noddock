@@ -1,0 +1,27 @@
+{
+  "id": "Me--MyPyNode",
+  "name": "My Python Node",
+  "description": "get length of text",
+  "parameters": [
+    {
+      "id": "text",
+      "name": "text",
+      "kind": "string",
+      "default": "hello",
+      "connect": [
+        "input",
+        "edit"
+      ]
+    },
+    {
+      "id": "length",
+      "name": "length",
+      "kind": "int",
+      "default": 0,
+      "connect": [
+        "output"
+      ]
+    }
+  ],
+  "run_enter": "main.py"
+}

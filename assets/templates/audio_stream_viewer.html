@@ -1,0 +1,208 @@
+<head>
+    <link rel="stylesheet" href="/assets/output.css" />
+    <script defer src="/assets/js_ext/alpine@3.14.8.min.js"></script>
+</head>
+
+<body class="bg-neutral-900 text-neutral-100 h-screen" x-data="audioDemo()"
+    @audio-stream-start.window="startStream($event.detail)">
+
+    <div class="flex flex-col items-center justify-center h-full gap-4 px-6">
+        <div id="player-box" class="flex flex-col items-center gap-4">
+            <div class="text-sm text-gray-400" x-text="status"></div>
+            <button class="bg-emerald-500 hover:bg-emerald-600 text-black px-6 py-2 rounded-lg text-sm"
+                @click="toggle()" x-text="playing ? '⏸ Pause' : '▶ Play'"></button>
+            <div class="text-xs text-gray-500" x-show="playing" x-text="'buffered ' + elapsed.toFixed(1) + 's'"></div>
+        </div>
+    </div>
+
+    <script>
+        // 该组件依赖提前注入的 stream.js（__startBinaryStream / __stopStream）和 sandbox.js 的 __buildAudio。
+        // 音频流式播放：监听 audio-stream-start 事件 → __startBinaryStream(key) 经 Wails Stream
+        // 收二进制块（替代原 fetch HTTP 流，WebView2 会缓冲 HTTP 流导致 Windows 无法实时），
+        // 前端去头拼接 PCM → Web Audio 实时播放。
+        function audioDemo() {
+            const CHUNK_SECONDS = 0.5;
+            return {
+                status: "Waiting for audio stream…",
+                playing: false,
+                elapsed: 0,
+                _key: null,
+                _ctx: null, _gain: null, _buf: null, _pos: 0,
+                _sampleRate: 0, _channels: 0, _bits: 0, _blockAlign: 0,
+                _playing: false, _timer: null, _hdrDone: false,
+
+                destroy() { this.stopStream(); },
+
+
+                startStream(payload) {
+                    if (!payload || !payload.key) return;
+                    this.stopStream();
+                    this.status = "Connecting…";
+                    this.playing = false;
+                    this.elapsed = 0;
+                    this._buf = null; this._pos = 0; this._playing = false;
+                    this._sampleRate = 0; this._channels = 0; this._bits = 0; this._blockAlign = 0;
+                    this._hdrDone = false;
+                    this._key = payload.key;
+                    this._ensureCtx();
+                    this._streamAndPlay(payload.key);
+                },
+
+                _streamAndPlay(key) {
+                    __startBinaryStream(
+                        key,
+                        (bytes) => this._feed(bytes),
+                        () => {
+                            // 流结束（后端 channel 关闭）：冲刷尾部 PCM，等排播队列播完收尾
+                            this._flushTail();
+                            this._playing = false;
+                            this.playing = false;
+                            this._waitDone();
+                        }
+                    );
+                },
+
+                // ── 数据管道：累积 → 解析头(一次) → 剥头 → 切块排播 ──
+                _feed(bytes) {
+                    if (!this._buf) this._buf = new Uint8Array(0);
+                    this._buf = this._append(this._buf, bytes);
+
+                    // 1. 解析 WAV 头（仅一次）：取采样参数 + data 段起始偏移
+                    if (!this._hdrDone) {
+                        const off = this._parseWavHeader();
+                        if (off < 0) return; // 头未收全，等更多数据
+                        this._hdrDone = true;
+                        this._buf = this._buf.subarray(off); // 剥掉头，只剩 PCM
+                    }
+
+                    // 2. 按固定时长切块排播
+                    const chunkBytes = Math.floor(this._sampleRate * CHUNK_SECONDS) * this._blockAlign;
+                    while (this._buf.length >= chunkBytes) {
+                        const chunk = this._buf.slice(0, chunkBytes);
+                        this._buf = this._buf.subarray(chunkBytes);
+                        this._scheduleChunk(chunk);
+                    }
+                },
+
+                // 解析标准 WAV 头（单段）：取 fmt 参数 + 返回 data 段 PCM 起始偏移；未收全/非 WAV 返回 -1。
+                _parseWavHeader() {
+                    const b = this._buf;
+                    if (b.length < 12) return -1;
+                    if (!(b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 &&
+                        b[8] === 0x57 && b[9] === 0x41 && b[10] === 0x56 && b[11] === 0x45)) return -1; // "RIFF....WAVE"
+                    let p = 12, dataOff = -1;
+                    while (p + 8 <= b.length) {
+                        const id = String.fromCharCode(b[p], b[p + 1], b[p + 2], b[p + 3]);
+                        const size = b[p + 4] | (b[p + 5] << 8) | (b[p + 6] << 16) | (b[p + 7] << 24);
+                        if (p + 8 + size > b.length) return -1; // 该 chunk 未收全，等更多数据
+                        if (id === "fmt ") this._parseFmt(b, p + 8);
+                        else if (id === "data") { dataOff = p + 8; break; }
+                        p += 8 + size + (size % 2); // 跳下一 chunk（偶数对齐）
+                    }
+                    return (this._sampleRate && this._blockAlign && dataOff >= 0) ? dataOff : -1;
+                },
+
+                _parseFmt(b, o) {
+                    const dv = new DataView(b.buffer, b.byteOffset + o, b.length - o);
+                    const audioFormat = dv.getUint16(0, true);
+                    this._channels = dv.getUint16(2, true);
+                    this._sampleRate = dv.getUint32(4, true);
+                    this._blockAlign = dv.getUint16(12, true);
+                    this._bits = dv.getUint16(14, true);
+                    if (audioFormat !== 1 || !this._sampleRate || !this._channels || !this._bits) {
+                        console.warn("[audio] unsupported WAV fmt", audioFormat, this._sampleRate, this._channels, this._bits);
+                    }
+                },
+
+                _flushTail() {
+                    if (this._buf && this._buf.length >= this._blockAlign) {
+                        this._scheduleChunk(this._buf);
+                        this._buf = new Uint8Array(0);
+                    }
+                },
+
+                // 排播一段 PCM：建 AudioBuffer → 填声道 → 接在 _pos（上一段结束时刻）后无缝播放。
+                _scheduleChunk(pcm) {
+                    if (!this._ctx) return;
+                    const n = Math.floor(pcm.length / this._blockAlign);
+                    if (n <= 0) return;
+                    const buf = this._ctx.createBuffer(this._channels, n, this._sampleRate);
+                    for (let c = 0; c < this._channels; c++) buf.copyToChannel(this._pcmToFloat(pcm, c), c);
+                    const src = this._ctx.createBufferSource();
+                    src.buffer = buf;
+                    src.connect(this._gain);
+                    const t = Math.max(this._ctx.currentTime, this._pos);
+                    src.start(t);
+                    this._pos = t + buf.duration;
+                    if (!this._playing) { this._playing = true; this.playing = true; this.status = "Playing…"; this._startTimer(); }
+                },
+
+                _pcmToFloat(pcm, ch) {
+                    const n = Math.floor(pcm.length / this._blockAlign);
+                    const out = new Float32Array(n);
+                    const ba = this._blockAlign;
+                    if (this._bits === 16) {
+                        const dv = new DataView(pcm.buffer, pcm.byteOffset, pcm.length);
+                        for (let i = 0; i < n; i++) out[i] = dv.getInt16(i * ba + ch * 2, true) / 32768;
+                    } else if (this._bits === 8) {
+                        for (let i = 0; i < n; i++) out[i] = (pcm[i * ba + ch] - 128) / 128;
+                    } else if (this._bits === 32) {
+                        const dv = new DataView(pcm.buffer, pcm.byteOffset, pcm.length);
+                        for (let i = 0; i < n; i++) out[i] = dv.getFloat32(i * ba + ch * 4, true);
+                    }
+                    return out;
+                },
+
+                _append(a, b) {
+                    const out = new Uint8Array(a.length + b.length);
+                    out.set(a, 0); out.set(b, a.length);
+                    return out;
+                },
+
+                // ── 播放控制 ──
+                _ensureCtx() {
+                    if (this._ctx) return;
+                    const AC = window.AudioContext || window.webkitAudioContext;
+                    this._ctx = new AC();
+                    this._gain = this._ctx.createGain();
+                    this._gain.connect(this._ctx.destination);
+                },
+                _startTimer() {
+                    if (this._timer) return;
+                    this._timer = setInterval(() => {
+                        if (this._ctx) this.elapsed = Math.max(0, this._pos - this._ctx.currentTime);
+                    }, 250);
+                },
+                _waitDone() {
+                    // 等排播队列播完（_pos 追平 currentTime）再置 Done
+                    const tick = setInterval(() => {
+                        if (!this._ctx) { clearInterval(tick); return; }
+                        if (this._pos <= this._ctx.currentTime + 0.05) {
+                            clearInterval(tick);
+                            if (this._timer) { clearInterval(this._timer); this._timer = null; }
+                            this.status = "Done";
+                        }
+                    }, 200);
+                },
+                toggle() {
+                    if (!this._ctx) return;
+                    if (this._ctx.state === "running") {
+                        this._ctx.suspend(); this.playing = false; this.status = "Paused";
+                    } else {
+                        this._ctx.resume(); this.playing = true; this.status = "Playing…";
+                    }
+                },
+                stopStream() {
+                    if (this._key) { __stopStream(this._key); this._key = null; }
+                    if (this._timer) { clearInterval(this._timer); this._timer = null; }
+                    if (this._ctx) {
+                        this._ctx.close().catch(() => { });
+                        this._ctx = null; this._gain = null;
+                    }
+                    this._buf = null; this._pos = 0; this._playing = false;
+                    this.playing = false;
+                },
+            };
+        }
+    </script>
+</body>

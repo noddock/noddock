@@ -1,0 +1,3083 @@
+{
+  "id": "example_project",
+  "node_instances": {
+    "Core--Calculator--IntPlus_I2": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Int_I1": {
+      "context": {
+        "int": -2
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Int_I2": {
+      "context": {
+        "int": 13
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Int_I3": {
+      "context": {
+        "int": -2
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Int_I4": {
+      "context": {},
+      "property": {
+        "async": true
+      }
+    },
+    "Core--Container--Int_I5": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I1": {
+      "context": {
+        "json": "[{\"role\":\"system\",\"content\":\"You are a helpful assistant.\"},{\"role\":\"user\",\"content\":\"\u003cwrite something here\u003e\"}]"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I10": {
+      "context": {
+        "json": "{\"result\":{\"age\":\"27\"}}"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I11": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I12": {
+      "context": {
+        "json": "[{\"type\":\"function\",\"function\":{\"name\":\"get_name\",\"description\":\"获取用户姓名\",\"parameters\":{\"type\":\"object\",\"properties\":{}}}}]"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I14": {
+      "context": {
+        "json": "[]"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I2": {
+      "context": {
+        "json": "{\"role\":\"user\",\"content\":\"You are now acting as a compaction engine for this AI coding assistant. Condense the conversation ABOVE into a structured checkpoint that lets another model resume the work with no loss of essential context.\\n\\n Output EXACTLY the Markdown structure below: keep every section, in order. Use terse bullets, not prose paragraphs. Write \\\"(none)\\\" for an empty section — never drop a section.\\n\\n ## Primary Request and Intent\\n - [the user's original and evolving goals; quote verbatim where the exact wording matters]\\n\\n ## Key Technical Concepts\\n - [technologies, frameworks, patterns, and conventions in play]\\n\\n ## Files and Code\\n - [exact path: why it matters, key changes or snippets]\\n\\n ## Errors and Fixes\\n - [error: how it was resolved, plus any related user feedback]\\n\\n ## Pending Jobs\\n - [explicitly requested work not yet completed]\\n\\n ## Current Work\\n - [precisely what was in progress at this checkpoint]\\n\\n ## Next Step\\n - [the single next action, directly in line with the most recent request, or \\\"(none)\\\"]\\n\\n ## Critical Context\\n - [decisions and their rationale, constraints, user preferences, open questions, data needed to continue]\\n\\n Rules:\\n - Write concise English engineering prose. Preserve exact file paths, commands, error strings, identifiers, numeric values, function signatures, and syntax fragments.\\n - Capture user feedback and explicit instructions faithfully, especially corrections.\\n - Do NOT mention this summarization request or that the context was compacted.\\n - Output only the checkpoint text: do not call any tool or take any other action.\\n - If the conversation already contains a \u003ccompacted-summary\u003e block, it is a PRIOR checkpoint. Do not copy it forward verbatim: preserve still-true facts, drop stale ones, and merge newer information into a single consolidated summary under the same structure.\"}"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I3": {
+      "context": {
+        "json": "{\"result\":{\"name\":\"小明\"}}"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I4": {
+      "context": {
+        "json": "[]"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I5": {
+      "context": {
+        "json": "{\"name\":\"noddock\",\"version\":1,\"tags\":[\"example\",\"tutorial\"]}"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I6": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I7": {
+      "context": {
+        "json": "[{\"type\":\"function\",\"function\":{\"name\":\"get_name\",\"description\":\"get user name method\",\"parameters\":{\"type\":\"object\",\"properties\":{}}}}]"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I8": {
+      "context": {
+        "json": "[{\"role\":\"user\",\"content\":\"What is my name?\"}]"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--Json_I9": {
+      "context": {
+        "json": "{\"result\":{\"name\":\"小明\"}}"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--List_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--List_I2": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--List_I3": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--List_I4": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--List_I5": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--List_I7": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--String_I1": {
+      "context": {
+        "string": "hello noddock"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--String_I2": {
+      "context": {
+        "string": "It costs 10 seconds to finish."
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--String_I3": {
+      "context": {
+        "string": "It costs 1 seconds to finish.\na\u003cb branch runs in async, but order not promised."
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--String_I7": {
+      "context": {
+        "string": "hello noddock"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Core--Container--String_I8": {
+      "context": {
+        "string": "kcoddon olleh"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Json--JsonLength_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Json--JsonListReplace_I2": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Json--Property--GetJson_I1": {
+      "context": {
+        "key": "tool_calls"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Json--Property--SetInt_I1": {
+      "context": {
+        "key": "count"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Json--Property--SetInt_I3": {
+      "context": {
+        "key": "count"
+      },
+      "property": {
+        "async": true
+      }
+    },
+    "LLM--OpenAI--Chat_I1": {
+      "context": {
+        "api": "my-deepseek",
+        "endpoint": "https://api.deepseek.com/chat/completions",
+        "model": "deepseek-flash"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "LLM--OpenAI--ToolCallParser_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "LLM--OpenAI--ToolResultBuilder_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Compare--CompareInt_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Compare--CompareInt_I3": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Compare--CompareString_I1": {
+      "context": {
+        "b": "get_age"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Compare--CompareString_I2": {
+      "context": {
+        "b": "get_name"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Counter_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Counter_I5": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Or_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--RunWorkflow_I1": {
+      "context": {
+        "target": "example2_tool_call_cycle"
+      },
+      "property": {
+        "async": true
+      }
+    },
+    "Logic--RunWorkflow_I2": {
+      "context": {
+        "target": "example2_tool_call_cycle"
+      },
+      "property": {
+        "async": true
+      }
+    },
+    "Logic--RunWorkflow_I3": {
+      "context": {
+        "target": "example2_tool_call"
+      },
+      "property": {
+        "async": true
+      }
+    },
+    "Logic--RunWorkflow_I4": {
+      "context": {
+        "target": "example5_cycle"
+      },
+      "property": {
+        "async": true
+      }
+    },
+    "Logic--RunWorkflow_I6": {
+      "context": {
+        "target": "example5_cycle_async"
+      },
+      "property": {
+        "async": true
+      }
+    },
+    "Logic--Stop_I1": {
+      "context": {
+        "stop": false
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Wait_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Logic--Wait_I3": {
+      "context": {},
+      "property": {
+        "async": true
+      }
+    },
+    "MCP--McpClient_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Me--MyJSNode_I1": {
+      "context": {},
+      "property": {
+        "async": false
+      }
+    },
+    "Me--MyPyNode_I1": {
+      "context": {
+        "address": "/usr/bin/python3"
+      },
+      "property": {
+        "async": false
+      }
+    },
+    "UI--Conversation_I1": {
+      "context": {
+        "chat_workflow": "example1_chat_workflow",
+        "compress_workflow": "example1_compress_workflow",
+        "messages": "[{\"content\":\"You are a helpful assistant!\",\"role\":\"system\"},{\"content\":\"How are you!\",\"role\":\"user\"}]"
+      },
+      "property": {
+        "async": false
+      }
+    }
+  },
+  "node_execs": {
+    "Core--Calculator--IntPlus_I2_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "a": [
+            "input"
+          ],
+          "b": [
+            "edit"
+          ],
+          "sum": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Int_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "int": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Int_I2_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "int": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Int_I3_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "int": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Int_I4_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "int": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Int_I4_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "int": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Int_I5_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "int": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Int_I5_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "int": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I10_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I11_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I12_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I14_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I1_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I2_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I3_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I4_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I5_E1": {
+      "property": {
+        "custom_render_path": "json_editor.html",
+        "is_collapsed": false,
+        "custom_name": "JSON Editor",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I6_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I7_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I7_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I8_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I8_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I8_E3": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I9_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": true,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I9_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I9_E3": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": true,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--Json_I9_E4": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": true,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "edit",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output",
+            "edit"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I1_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I2_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I2_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output",
+            "edit"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I2_E3": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I3_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I4_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I5_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "edit",
+            "output"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--List_I7_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "append": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output",
+            "edit"
+          ],
+          "popout": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--String_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "string": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--String_I2_E1": {
+      "property": {
+        "custom_render_path": "/assets/templates/string_console.html",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "string": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--String_I3_E1": {
+      "property": {
+        "custom_render_path": "/assets/templates/string_console.html",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "string": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--String_I7_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "string": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Core--Container--String_I8_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "string": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Json--JsonLength_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "length": [
+            "output"
+          ],
+          "list": [
+            "input"
+          ]
+        }
+      }
+    },
+    "Json--JsonListReplace_I2_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "end": [
+            "input"
+          ],
+          "list": [
+            "input",
+            "output"
+          ],
+          "replace": [
+            "input"
+          ],
+          "start": [
+            "input"
+          ]
+        }
+      }
+    },
+    "Json--Property--GetJson_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input"
+          ],
+          "key": [
+            "edit"
+          ],
+          "value": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Json--Property--SetInt_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "output"
+          ],
+          "key": [
+            "edit"
+          ],
+          "value": [
+            "input"
+          ]
+        }
+      }
+    },
+    "Json--Property--SetInt_I3_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "json": [
+            "input",
+            "output"
+          ],
+          "key": [
+            "edit"
+          ],
+          "value": [
+            "input"
+          ]
+        }
+      }
+    },
+    "LLM--OpenAI--Chat_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "api": [
+            "edit"
+          ],
+          "endpoint": [
+            "edit"
+          ],
+          "messages": [
+            "input",
+            "output"
+          ],
+          "model": [
+            "edit"
+          ],
+          "reply": [
+            "output"
+          ],
+          "settings_extra": [
+            "hidden"
+          ],
+          "stream_num": [
+            "edit"
+          ],
+          "stream_out": [
+            "output"
+          ],
+          "tokens": [
+            "hidden"
+          ],
+          "tools": [
+            "input"
+          ]
+        }
+      }
+    },
+    "LLM--OpenAI--Chat_I1_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "api": [
+            "edit"
+          ],
+          "endpoint": [
+            "edit"
+          ],
+          "messages": [
+            "input",
+            "output"
+          ],
+          "model": [
+            "edit"
+          ],
+          "reply": [
+            "output"
+          ],
+          "settings_extra": [
+            "hidden"
+          ],
+          "stream_num": [
+            "input"
+          ],
+          "stream_out": [
+            "output"
+          ],
+          "tokens": [
+            "hidden"
+          ],
+          "tools": [
+            "input"
+          ]
+        }
+      }
+    },
+    "LLM--OpenAI--Chat_I1_E3": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "api": [
+            "edit"
+          ],
+          "endpoint": [
+            "edit"
+          ],
+          "messages": [
+            "input",
+            "output"
+          ],
+          "model": [
+            "edit"
+          ],
+          "reply": [
+            "output"
+          ],
+          "settings_extra": [
+            "hidden"
+          ],
+          "stream_num": [
+            "edit"
+          ],
+          "stream_out": [
+            "output"
+          ],
+          "tokens": [
+            "hidden"
+          ],
+          "tools": [
+            "input"
+          ]
+        }
+      }
+    },
+    "LLM--OpenAI--Chat_I1_E5": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "api": [
+            "edit"
+          ],
+          "endpoint": [
+            "edit"
+          ],
+          "messages": [
+            "input",
+            "output"
+          ],
+          "model": [
+            "edit"
+          ],
+          "reply": [
+            "output"
+          ],
+          "settings_extra": [
+            "hidden"
+          ],
+          "stream_num": [
+            "edit"
+          ],
+          "stream_out": [
+            "output"
+          ],
+          "tokens": [
+            "hidden"
+          ],
+          "tools": [
+            "input"
+          ]
+        }
+      }
+    },
+    "LLM--OpenAI--ToolCallParser_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "argument": [
+            "output"
+          ],
+          "call": [
+            "input"
+          ],
+          "id": [
+            "output"
+          ],
+          "name": [
+            "output"
+          ],
+          "tool call": [
+            "input"
+          ]
+        }
+      }
+    },
+    "LLM--OpenAI--ToolResultBuilder_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "content": [
+            "input"
+          ],
+          "id": [
+            "input"
+          ],
+          "result": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--Compare--CompareInt_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "a": [
+            "input"
+          ],
+          "a_equal_b": [
+            "output"
+          ],
+          "a_large_equal_b": [
+            "output"
+          ],
+          "a_less_b": [
+            "output"
+          ],
+          "a_not_equal_b": [
+            "output"
+          ],
+          "b": [
+            "edit"
+          ]
+        }
+      }
+    },
+    "Logic--Compare--CompareInt_I3_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "a": [
+            "input"
+          ],
+          "a_equal_b": [
+            "output"
+          ],
+          "a_large_equal_b": [
+            "output"
+          ],
+          "a_less_b": [
+            "output"
+          ],
+          "a_not_equal_b": [
+            "output"
+          ],
+          "b": [
+            "edit"
+          ]
+        }
+      }
+    },
+    "Logic--Compare--CompareString_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "a": [
+            "input"
+          ],
+          "a!=b": [
+            "output"
+          ],
+          "a=b": [
+            "output"
+          ],
+          "b": [
+            "edit"
+          ]
+        }
+      }
+    },
+    "Logic--Compare--CompareString_I2_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "a": [
+            "input"
+          ],
+          "a!=b": [
+            "output"
+          ],
+          "a=b": [
+            "output"
+          ],
+          "b": [
+            "edit"
+          ]
+        }
+      }
+    },
+    "Logic--Counter_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "count": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--Counter_I1_E3": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "count": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--Counter_I5_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "count": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--Counter_I5_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "count": [
+            "edit",
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--Or_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "then": [
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--RunWorkflow_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "input": [
+            "input"
+          ],
+          "output": [
+            "output"
+          ],
+          "target": [
+            "edit"
+          ],
+          "then": [
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--RunWorkflow_I2_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "input": [
+            "input"
+          ],
+          "output": [
+            "output"
+          ],
+          "target": [
+            "edit"
+          ],
+          "then": [
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--RunWorkflow_I3_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "input": [
+            "input"
+          ],
+          "output": [
+            "output"
+          ],
+          "target": [
+            "edit"
+          ],
+          "then": [
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--RunWorkflow_I4_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "target": [
+            "edit"
+          ],
+          "then": [
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--RunWorkflow_I6_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "target": [
+            "edit"
+          ],
+          "then": [
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--Stop_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "stop": [
+            "edit"
+          ],
+          "then": [
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "Logic--Wait_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "then": [
+            "input",
+            "output"
+          ],
+          "wait": [
+            "edit"
+          ]
+        }
+      }
+    },
+    "Logic--Wait_I3_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "then": [
+            "input",
+            "output"
+          ],
+          "wait": [
+            "edit"
+          ]
+        }
+      }
+    },
+    "MCP--McpClient_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "call": [
+            "input"
+          ],
+          "config": [
+            "edit",
+            "input"
+          ],
+          "result": [
+            "output"
+          ],
+          "tools": [
+            "output"
+          ]
+        }
+      }
+    },
+    "MCP--McpClient_I1_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "call": [
+            "input"
+          ],
+          "config": [
+            "edit",
+            "input"
+          ],
+          "result": [
+            "output"
+          ],
+          "tools": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Me--MyJSNode_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "string1": [
+            "input"
+          ],
+          "string2": [
+            "output"
+          ]
+        }
+      }
+    },
+    "Me--MyPyNode_I1_E1": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "address": [
+            "edit"
+          ],
+          "key": [
+            "input"
+          ],
+          "length": [
+            "output"
+          ],
+          "text": [
+            "input"
+          ]
+        }
+      }
+    },
+    "UI--Conversation_I1_E1": {
+      "property": {
+        "custom_render_path": "/assets/templates/conversation.html",
+        "is_collapsed": false,
+        "custom_name": "Conversation",
+        "param_connects": {
+          "chat_workflow": [
+            "edit"
+          ],
+          "compress_workflow": [
+            "edit"
+          ],
+          "end": [
+            "output"
+          ],
+          "messages": [
+            "input",
+            "output",
+            "edit"
+          ],
+          "start": [
+            "output"
+          ],
+          "stream_out": [
+            "input"
+          ]
+        }
+      }
+    },
+    "UI--Conversation_I1_E2": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "chat_workflow": [
+            "edit"
+          ],
+          "compress_workflow": [
+            "edit"
+          ],
+          "end": [
+            "output"
+          ],
+          "messages": [
+            "input",
+            "output"
+          ],
+          "start": [
+            "output"
+          ],
+          "stream_out": [
+            "input"
+          ]
+        }
+      }
+    },
+    "UI--Conversation_I1_E3": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "chat_workflow": [
+            "edit"
+          ],
+          "compress_workflow": [
+            "edit"
+          ],
+          "end": [
+            "output"
+          ],
+          "messages": [
+            "input",
+            "output"
+          ],
+          "start": [
+            "output"
+          ],
+          "stream_out": [
+            "input"
+          ]
+        }
+      }
+    },
+    "UI--Conversation_I1_E4": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "chat_workflow": [
+            "edit"
+          ],
+          "compress_workflow": [
+            "edit"
+          ],
+          "end": [
+            "output"
+          ],
+          "messages": [
+            "input",
+            "output"
+          ],
+          "start": [
+            "output"
+          ],
+          "stream_out": [
+            "input"
+          ]
+        }
+      }
+    },
+    "UI--Conversation_I1_E5": {
+      "property": {
+        "custom_render_path": "",
+        "is_collapsed": false,
+        "custom_name": "",
+        "param_connects": {
+          "chat_workflow": [
+            "edit"
+          ],
+          "compress_workflow": [
+            "edit"
+          ],
+          "end": [
+            "output"
+          ],
+          "messages": [
+            "input",
+            "output"
+          ],
+          "start": [
+            "output"
+          ],
+          "stream_out": [
+            "input"
+          ]
+        }
+      }
+    }
+  },
+  "workflows": {
+    "example1_chat": {
+      "node_ids": [
+        "Core--Container--Json_I6_E1",
+        "Core--Container--Json_I1_E1",
+        "Core--Container--Json_I1_E2",
+        "LLM--OpenAI--Chat_I1_E1"
+      ],
+      "edges": [
+        {
+          "fromNode": "Core--Container--Json_I1_E1",
+          "fromParam": "json",
+          "toNode": "LLM--OpenAI--Chat_I1_E1",
+          "toParam": "messages"
+        },
+        {
+          "fromNode": "LLM--OpenAI--Chat_I1_E1",
+          "fromParam": "messages",
+          "toNode": "Core--Container--Json_I1_E2",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "LLM--OpenAI--Chat_I1_E1",
+          "fromParam": "reply",
+          "toNode": "Core--Container--Json_I6_E1",
+          "toParam": "json"
+        }
+      ],
+      "property": {
+        "order": 1,
+        "collapsed": false
+      }
+    },
+    "example1_chat_workflow": {
+      "node_ids": [
+        "LLM--OpenAI--Chat_I1_E2",
+        "UI--Conversation_I1_E1",
+        "UI--Conversation_I1_E2",
+        "UI--Conversation_I1_E3"
+      ],
+      "edges": [
+        {
+          "fromNode": "UI--Conversation_I1_E1",
+          "fromParam": "messages",
+          "toNode": "LLM--OpenAI--Chat_I1_E2",
+          "toParam": "messages"
+        },
+        {
+          "fromNode": "LLM--OpenAI--Chat_I1_E2",
+          "fromParam": "messages",
+          "toNode": "UI--Conversation_I1_E2",
+          "toParam": "messages"
+        },
+        {
+          "fromNode": "LLM--OpenAI--Chat_I1_E2",
+          "fromParam": "stream_out",
+          "toNode": "UI--Conversation_I1_E3",
+          "toParam": "stream_out"
+        }
+      ],
+      "property": {
+        "order": 2,
+        "collapsed": true
+      }
+    },
+    "example1_compress_workflow": {
+      "node_ids": [
+        "LLM--OpenAI--Chat_I1_E3",
+        "UI--Conversation_I1_E4",
+        "UI--Conversation_I1_E5",
+        "Core--Container--Json_I2_E1",
+        "Core--Container--List_I3_E1",
+        "Core--Container--List_I4_E1",
+        "Core--Container--Json_I14_E1"
+      ],
+      "edges": [
+        {
+          "fromNode": "Core--Container--Json_I2_E1",
+          "fromParam": "json",
+          "toNode": "Core--Container--List_I3_E1",
+          "toParam": "append"
+        },
+        {
+          "fromNode": "UI--Conversation_I1_E4",
+          "fromParam": "messages",
+          "toNode": "Core--Container--List_I3_E1",
+          "toParam": "list"
+        },
+        {
+          "fromNode": "Core--Container--List_I3_E1",
+          "fromParam": "list",
+          "toNode": "LLM--OpenAI--Chat_I1_E3",
+          "toParam": "messages"
+        },
+        {
+          "fromNode": "LLM--OpenAI--Chat_I1_E3",
+          "fromParam": "reply",
+          "toNode": "Core--Container--List_I4_E1",
+          "toParam": "append"
+        },
+        {
+          "fromNode": "Core--Container--Json_I14_E1",
+          "fromParam": "json",
+          "toNode": "Core--Container--List_I4_E1",
+          "toParam": "list"
+        },
+        {
+          "fromNode": "Core--Container--List_I4_E1",
+          "fromParam": "list",
+          "toNode": "UI--Conversation_I1_E5",
+          "toParam": "messages"
+        }
+      ],
+      "property": {
+        "order": 3,
+        "collapsed": true
+      }
+    },
+    "example2_mcp_blender_load": {
+      "node_ids": [
+        "Core--Container--Json_I7_E1",
+        "MCP--McpClient_I1_E2",
+        "Core--Container--Json_I11_E1"
+      ],
+      "edges": [
+        {
+          "fromNode": "MCP--McpClient_I1_E2",
+          "fromParam": "tools",
+          "toNode": "Core--Container--Json_I7_E1",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "Core--Container--Json_I11_E1",
+          "fromParam": "json",
+          "toNode": "MCP--McpClient_I1_E2",
+          "toParam": "call"
+        }
+      ],
+      "property": {
+        "order": 6,
+        "collapsed": true
+      }
+    },
+    "example2_tool_call": {
+      "node_ids": [
+        "LLM--OpenAI--Chat_I1_E5",
+        "Core--Container--Json_I7_E2",
+        "Json--Property--GetJson_I1_E1",
+        "Logic--RunWorkflow_I2_E1",
+        "Core--Container--Json_I8_E1",
+        "Core--Container--Json_I8_E2",
+        "Core--Container--Json_I4_E1",
+        "Logic--RunWorkflow_I3_E1",
+        "Json--JsonListReplace_I2_E1",
+        "Json--JsonLength_I1_E1",
+        "Core--Calculator--IntPlus_I2_E1",
+        "Core--Container--Json_I8_E3",
+        "Core--Container--Json_I12_E1",
+        "Core--Container--List_I2_E1",
+        "Core--Container--List_I2_E2",
+        "Core--Container--List_I1_E1"
+      ],
+      "edges": [
+        {
+          "fromNode": "LLM--OpenAI--Chat_I1_E5",
+          "fromParam": "reply",
+          "toNode": "Json--Property--GetJson_I1_E1",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "Core--Container--Json_I7_E2",
+          "fromParam": "json",
+          "toNode": "LLM--OpenAI--Chat_I1_E5",
+          "toParam": "tools"
+        },
+        {
+          "fromNode": "LLM--OpenAI--Chat_I1_E5",
+          "fromParam": "messages",
+          "toNode": "Core--Container--Json_I8_E1",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "Core--Container--Json_I8_E1",
+          "fromParam": "json",
+          "toNode": "Json--JsonLength_I1_E1",
+          "toParam": "list"
+        },
+        {
+          "fromNode": "Json--JsonListReplace_I2_E1",
+          "fromParam": "list",
+          "toNode": "Core--Container--Json_I8_E2",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "Core--Calculator--IntPlus_I2_E1",
+          "fromParam": "sum",
+          "toNode": "Json--JsonListReplace_I2_E1",
+          "toParam": "start"
+        },
+        {
+          "fromNode": "Core--Calculator--IntPlus_I2_E1",
+          "fromParam": "sum",
+          "toNode": "Json--JsonListReplace_I2_E1",
+          "toParam": "end"
+        },
+        {
+          "fromNode": "Json--JsonLength_I1_E1",
+          "fromParam": "length",
+          "toNode": "Core--Calculator--IntPlus_I2_E1",
+          "toParam": "a"
+        },
+        {
+          "fromNode": "Core--Container--Json_I8_E1",
+          "fromParam": "json",
+          "toNode": "Json--JsonListReplace_I2_E1",
+          "toParam": "list"
+        },
+        {
+          "fromNode": "Core--Container--Json_I8_E2",
+          "fromParam": "json",
+          "toNode": "Logic--RunWorkflow_I3_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Core--Container--Json_I8_E3",
+          "fromParam": "json",
+          "toNode": "LLM--OpenAI--Chat_I1_E5",
+          "toParam": "messages"
+        },
+        {
+          "fromNode": "Core--Container--Json_I4_E1",
+          "fromParam": "json",
+          "toNode": "Core--Container--List_I2_E1",
+          "toParam": "list"
+        },
+        {
+          "fromNode": "Core--Container--List_I2_E1",
+          "fromParam": "list",
+          "toNode": "Logic--RunWorkflow_I2_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Logic--RunWorkflow_I2_E1",
+          "fromParam": "then",
+          "toNode": "Core--Container--List_I2_E2",
+          "toParam": "list"
+        },
+        {
+          "fromNode": "Core--Container--List_I2_E2",
+          "fromParam": "list",
+          "toNode": "Json--JsonListReplace_I2_E1",
+          "toParam": "replace"
+        },
+        {
+          "fromNode": "Json--Property--GetJson_I1_E1",
+          "fromParam": "value",
+          "toNode": "Core--Container--List_I1_E1",
+          "toParam": "list"
+        },
+        {
+          "fromNode": "Core--Container--List_I1_E1",
+          "fromParam": "list",
+          "toNode": "Logic--RunWorkflow_I2_E1",
+          "toParam": "then"
+        }
+      ],
+      "property": {
+        "order": 4,
+        "collapsed": true
+      }
+    },
+    "example2_tool_call_cycle": {
+      "node_ids": [
+        "Logic--Compare--CompareString_I2_E1",
+        "Core--Container--Json_I3_E1",
+        "Logic--RunWorkflow_I1_E1",
+        "LLM--OpenAI--ToolCallParser_I1_E1",
+        "LLM--OpenAI--ToolResultBuilder_I1_E1",
+        "Core--Container--Json_I9_E1",
+        "Logic--Or_I1_E1",
+        "Core--Container--Json_I9_E2",
+        "Logic--Compare--CompareString_I1_E1",
+        "Core--Container--Json_I10_E1",
+        "Core--Container--Json_I9_E3",
+        "MCP--McpClient_I1_E1",
+        "Core--Container--Json_I9_E4",
+        "Logic--Stop_I1_E1",
+        "Core--Container--List_I2_E3",
+        "Core--Container--List_I1_E2"
+      ],
+      "edges": [
+        {
+          "fromNode": "LLM--OpenAI--ToolCallParser_I1_E1",
+          "fromParam": "name",
+          "toNode": "Logic--Compare--CompareString_I2_E1",
+          "toParam": "a"
+        },
+        {
+          "fromNode": "LLM--OpenAI--ToolCallParser_I1_E1",
+          "fromParam": "id",
+          "toNode": "LLM--OpenAI--ToolResultBuilder_I1_E1",
+          "toParam": "id"
+        },
+        {
+          "fromNode": "Core--Container--Json_I3_E1",
+          "fromParam": "json",
+          "toNode": "Core--Container--Json_I9_E1",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "Logic--Compare--CompareString_I2_E1",
+          "fromParam": "a=b",
+          "toNode": "Core--Container--Json_I3_E1",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "Core--Container--Json_I9_E1",
+          "fromParam": "json",
+          "toNode": "Logic--Or_I1_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Logic--Or_I1_E1",
+          "fromParam": "then",
+          "toNode": "Core--Container--Json_I9_E2",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "Core--Container--Json_I9_E2",
+          "fromParam": "json",
+          "toNode": "LLM--OpenAI--ToolResultBuilder_I1_E1",
+          "toParam": "content"
+        },
+        {
+          "fromNode": "Core--Container--Json_I9_E3",
+          "fromParam": "json",
+          "toNode": "Logic--Or_I1_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Core--Container--Json_I10_E1",
+          "fromParam": "json",
+          "toNode": "Core--Container--Json_I9_E3",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "LLM--OpenAI--ToolCallParser_I1_E1",
+          "fromParam": "name",
+          "toNode": "Logic--Compare--CompareString_I1_E1",
+          "toParam": "a"
+        },
+        {
+          "fromNode": "Logic--Compare--CompareString_I1_E1",
+          "fromParam": "a=b",
+          "toNode": "Core--Container--Json_I10_E1",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "MCP--McpClient_I1_E1",
+          "fromParam": "result",
+          "toNode": "Core--Container--Json_I9_E4",
+          "toParam": "json"
+        },
+        {
+          "fromNode": "Core--Container--Json_I9_E4",
+          "fromParam": "json",
+          "toNode": "Logic--Or_I1_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Logic--Stop_I1_E1",
+          "fromParam": "then",
+          "toNode": "MCP--McpClient_I1_E1",
+          "toParam": "call"
+        },
+        {
+          "fromNode": "LLM--OpenAI--ToolResultBuilder_I1_E1",
+          "fromParam": "result",
+          "toNode": "Core--Container--List_I2_E3",
+          "toParam": "append"
+        },
+        {
+          "fromNode": "Core--Container--List_I2_E3",
+          "fromParam": "list",
+          "toNode": "Logic--RunWorkflow_I1_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Core--Container--List_I1_E2",
+          "fromParam": "popout",
+          "toNode": "MCP--McpClient_I1_E1",
+          "toParam": "call"
+        },
+        {
+          "fromNode": "Core--Container--List_I1_E2",
+          "fromParam": "popout",
+          "toNode": "LLM--OpenAI--ToolCallParser_I1_E1",
+          "toParam": "call"
+        }
+      ],
+      "property": {
+        "order": 5,
+        "collapsed": true
+      }
+    },
+    "example3_custom_js_node": {
+      "node_ids": [
+        "Me--MyJSNode_I1_E1",
+        "Core--Container--String_I7_E1",
+        "Core--Container--String_I8_E1"
+      ],
+      "edges": [
+        {
+          "fromNode": "Core--Container--String_I7_E1",
+          "fromParam": "string",
+          "toNode": "Me--MyJSNode_I1_E1",
+          "toParam": "string1"
+        },
+        {
+          "fromNode": "Me--MyJSNode_I1_E1",
+          "fromParam": "string2",
+          "toNode": "Core--Container--String_I8_E1",
+          "toParam": "string"
+        }
+      ],
+      "property": {
+        "order": 7,
+        "collapsed": true
+      }
+    },
+    "example3_custom_python_node": {
+      "node_ids": [
+        "Me--MyPyNode_I1_E1",
+        "Core--Container--String_I1_E1",
+        "Core--Container--Int_I2_E1"
+      ],
+      "edges": [
+        {
+          "fromNode": "Me--MyPyNode_I1_E1",
+          "fromParam": "length",
+          "toNode": "Core--Container--Int_I2_E1",
+          "toParam": "int"
+        },
+        {
+          "fromNode": "Core--Container--String_I1_E1",
+          "fromParam": "string",
+          "toNode": "Me--MyPyNode_I1_E1",
+          "toParam": "text"
+        }
+      ],
+      "property": {
+        "order": 8,
+        "collapsed": true
+      }
+    },
+    "example4_custom_html": {
+      "node_ids": [
+        "Core--Container--Json_I5_E1"
+      ],
+      "edges": [],
+      "property": {
+        "order": 9,
+        "collapsed": true
+      }
+    },
+    "example5_cycle": {
+      "node_ids": [
+        "Logic--Counter_I1_E1",
+        "Logic--Compare--CompareInt_I1_E1",
+        "Logic--RunWorkflow_I4_E1",
+        "Core--Container--List_I5_E1",
+        "Json--Property--SetInt_I1_E1",
+        "Logic--Counter_I1_E3",
+        "Core--Container--Int_I1_E1",
+        "Logic--Wait_I1_E1",
+        "Core--Container--String_I2_E1",
+        "Core--Container--Int_I5_E1",
+        "Core--Container--Int_I5_E2"
+      ],
+      "edges": [
+        {
+          "fromNode": "Json--Property--SetInt_I1_E1",
+          "fromParam": "json",
+          "toNode": "Core--Container--List_I5_E1",
+          "toParam": "append"
+        },
+        {
+          "fromNode": "Core--Container--Int_I1_E1",
+          "fromParam": "int",
+          "toNode": "Logic--Counter_I1_E3",
+          "toParam": "count"
+        },
+        {
+          "fromNode": "Logic--Compare--CompareInt_I1_E1",
+          "fromParam": "a_large_equal_b",
+          "toNode": "Core--Container--Int_I1_E1",
+          "toParam": "int"
+        },
+        {
+          "fromNode": "Logic--Compare--CompareInt_I1_E1",
+          "fromParam": "a_less_b",
+          "toNode": "Logic--Wait_I1_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Core--Container--List_I5_E1",
+          "fromParam": "list",
+          "toNode": "Logic--RunWorkflow_I4_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Logic--Counter_I1_E1",
+          "fromParam": "count",
+          "toNode": "Core--Container--Int_I5_E1",
+          "toParam": "int"
+        },
+        {
+          "fromNode": "Core--Container--Int_I5_E1",
+          "fromParam": "int",
+          "toNode": "Logic--Compare--CompareInt_I1_E1",
+          "toParam": "a"
+        },
+        {
+          "fromNode": "Logic--Wait_I1_E1",
+          "fromParam": "then",
+          "toNode": "Core--Container--Int_I5_E2",
+          "toParam": "int"
+        },
+        {
+          "fromNode": "Core--Container--Int_I5_E2",
+          "fromParam": "int",
+          "toNode": "Json--Property--SetInt_I1_E1",
+          "toParam": "value"
+        }
+      ],
+      "property": {
+        "order": 10,
+        "collapsed": true
+      }
+    },
+    "example5_cycle_async": {
+      "node_ids": [
+        "Logic--Counter_I5_E1",
+        "Logic--Compare--CompareInt_I3_E1",
+        "Core--Container--Int_I3_E1",
+        "Logic--Counter_I5_E2",
+        "Logic--Wait_I3_E1",
+        "Json--Property--SetInt_I3_E1",
+        "Core--Container--List_I7_E1",
+        "Logic--RunWorkflow_I6_E1",
+        "Core--Container--Int_I4_E1",
+        "Core--Container--Int_I4_E2",
+        "Core--Container--String_I3_E1"
+      ],
+      "edges": [
+        {
+          "fromNode": "Logic--Compare--CompareInt_I3_E1",
+          "fromParam": "a_large_equal_b",
+          "toNode": "Core--Container--Int_I3_E1",
+          "toParam": "int"
+        },
+        {
+          "fromNode": "Core--Container--Int_I3_E1",
+          "fromParam": "int",
+          "toNode": "Logic--Counter_I5_E2",
+          "toParam": "count"
+        },
+        {
+          "fromNode": "Json--Property--SetInt_I3_E1",
+          "fromParam": "json",
+          "toNode": "Core--Container--List_I7_E1",
+          "toParam": "append"
+        },
+        {
+          "fromNode": "Logic--Compare--CompareInt_I3_E1",
+          "fromParam": "a_less_b",
+          "toNode": "Logic--RunWorkflow_I6_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Logic--Compare--CompareInt_I3_E1",
+          "fromParam": "a_less_b",
+          "toNode": "Logic--Wait_I3_E1",
+          "toParam": "then"
+        },
+        {
+          "fromNode": "Logic--Counter_I5_E1",
+          "fromParam": "count",
+          "toNode": "Core--Container--Int_I4_E1",
+          "toParam": "int"
+        },
+        {
+          "fromNode": "Core--Container--Int_I4_E1",
+          "fromParam": "int",
+          "toNode": "Logic--Compare--CompareInt_I3_E1",
+          "toParam": "a"
+        },
+        {
+          "fromNode": "Logic--Wait_I3_E1",
+          "fromParam": "then",
+          "toNode": "Core--Container--Int_I4_E2",
+          "toParam": "int"
+        },
+        {
+          "fromNode": "Core--Container--Int_I4_E2",
+          "fromParam": "int",
+          "toNode": "Json--Property--SetInt_I3_E1",
+          "toParam": "value"
+        }
+      ],
+      "property": {
+        "order": 11,
+        "collapsed": true
+      }
+    }
+  },
+  "layouts": {
+    "workflow_layouts": {
+      "example1_chat": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example1_chat_workflow": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example1_compress_workflow": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example2_mcp_blender_load": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example2_tool_call": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example2_tool_call_cycle": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example3_custom_js_node": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example3_custom_python_node": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example4_custom_html": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example5_cycle": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      },
+      "example5_cycle_async": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "zoom": 1
+        }
+      }
+    },
+    "node_layouts": {
+      "Core--Calculator--IntPlus_I2_E1": {
+        "x": 1570,
+        "y": 241,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--Int_I1_E1": {
+        "x": 601,
+        "y": 26,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--Int_I2_E1": {
+        "x": 567,
+        "y": 37,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--Int_I3_E1": {
+        "x": 634,
+        "y": 39,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--Int_I4_E1": {
+        "x": 105,
+        "y": 38,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--Int_I4_E2": {
+        "x": 898,
+        "y": 180,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--Int_I5_E1": {
+        "x": 85,
+        "y": 31,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--Int_I5_E2": {
+        "x": 863,
+        "y": 210,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--Json_I10_E1": {
+        "x": 900,
+        "y": 314,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I11_E1": {
+        "x": 15,
+        "y": 39,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I12_E1": {
+        "x": 75,
+        "y": 417,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I14_E1": {
+        "x": 662,
+        "y": -164,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I1_E1": {
+        "x": 41,
+        "y": 52,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I1_E2": {
+        "x": 651,
+        "y": 54,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I2_E1": {
+        "x": 145,
+        "y": 287,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I3_E1": {
+        "x": 899,
+        "y": -173,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I4_E1": {
+        "x": 637,
+        "y": -270,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I5_E1": {
+        "x": 94,
+        "y": 5,
+        "w": 500,
+        "h": 474
+      },
+      "Core--Container--Json_I6_E1": {
+        "x": 649,
+        "y": 314,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I7_E1": {
+        "x": 596,
+        "y": 52,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I7_E2": {
+        "x": 76,
+        "y": 190,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I8_E1": {
+        "x": 644,
+        "y": 199,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I8_E2": {
+        "x": 2091,
+        "y": -24,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I8_E3": {
+        "x": 74,
+        "y": -33,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I9_E1": {
+        "x": 1147,
+        "y": -169,
+        "w": 200,
+        "h": 59
+      },
+      "Core--Container--Json_I9_E2": {
+        "x": 1728,
+        "y": 164,
+        "w": 200,
+        "h": 193
+      },
+      "Core--Container--Json_I9_E3": {
+        "x": 1153,
+        "y": 309,
+        "w": 200,
+        "h": 59
+      },
+      "Core--Container--Json_I9_E4": {
+        "x": 1153,
+        "y": 665,
+        "w": 200,
+        "h": 59
+      },
+      "Core--Container--List_I1_E1": {
+        "x": 944,
+        "y": -5,
+        "w": 200,
+        "h": 217
+      },
+      "Core--Container--List_I1_E2": {
+        "x": 69,
+        "y": 125,
+        "w": 200,
+        "h": 83
+      },
+      "Core--Container--List_I2_E1": {
+        "x": 937,
+        "y": -195,
+        "w": 200,
+        "h": 83
+      },
+      "Core--Container--List_I2_E2": {
+        "x": 1565,
+        "y": -32,
+        "w": 200,
+        "h": 217
+      },
+      "Core--Container--List_I2_E3": {
+        "x": 2216,
+        "y": 195,
+        "w": 200,
+        "h": 83
+      },
+      "Core--Container--List_I3_E1": {
+        "x": 407,
+        "y": 73,
+        "w": 200,
+        "h": 83
+      },
+      "Core--Container--List_I4_E1": {
+        "x": 890,
+        "y": 68,
+        "w": 200,
+        "h": 83
+      },
+      "Core--Container--List_I5_E1": {
+        "x": 1402,
+        "y": 218,
+        "w": 200,
+        "h": 217
+      },
+      "Core--Container--List_I7_E1": {
+        "x": 1423,
+        "y": 182,
+        "w": 200,
+        "h": 217
+      },
+      "Core--Container--String_I1_E1": {
+        "x": 21,
+        "y": 34,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--String_I2_E1": {
+        "x": 318,
+        "y": 215,
+        "w": 200,
+        "h": 197
+      },
+      "Core--Container--String_I3_E1": {
+        "x": 345,
+        "y": 263,
+        "w": 236,
+        "h": 217
+      },
+      "Core--Container--String_I7_E1": {
+        "x": 32,
+        "y": 37,
+        "w": 200,
+        "h": 85
+      },
+      "Core--Container--String_I8_E1": {
+        "x": 552,
+        "y": 49,
+        "w": 200,
+        "h": 85
+      },
+      "Json--JsonLength_I1_E1": {
+        "x": 1038,
+        "y": 252,
+        "w": 200,
+        "h": 59
+      },
+      "Json--JsonListReplace_I2_E1": {
+        "x": 1827,
+        "y": -26,
+        "w": 200,
+        "h": 131
+      },
+      "Json--Property--GetJson_I1_E1": {
+        "x": 646,
+        "y": 1,
+        "w": 200,
+        "h": 85
+      },
+      "Json--Property--SetInt_I1_E1": {
+        "x": 1135,
+        "y": 207,
+        "w": 200,
+        "h": 109
+      },
+      "Json--Property--SetInt_I3_E1": {
+        "x": 1168,
+        "y": 177,
+        "w": 200,
+        "h": 109
+      },
+      "LLM--OpenAI--Chat_I1_E1": {
+        "x": 360,
+        "y": 70,
+        "w": 200,
+        "h": 184
+      },
+      "LLM--OpenAI--Chat_I1_E2": {
+        "x": 1056,
+        "y": 56,
+        "w": 200,
+        "h": 184
+      },
+      "LLM--OpenAI--Chat_I1_E3": {
+        "x": 664,
+        "y": 64,
+        "w": 200,
+        "h": 184
+      },
+      "LLM--OpenAI--Chat_I1_E5": {
+        "x": 372,
+        "y": 37,
+        "w": 200,
+        "h": 184
+      },
+      "LLM--OpenAI--ToolCallParser_I1_E1": {
+        "x": 376,
+        "y": 121,
+        "w": 200,
+        "h": 107
+      },
+      "LLM--OpenAI--ToolResultBuilder_I1_E1": {
+        "x": 1973,
+        "y": 170,
+        "w": 200,
+        "h": 83
+      },
+      "Logic--Compare--CompareInt_I1_E1": {
+        "x": 318,
+        "y": 21,
+        "w": 200,
+        "h": 157
+      },
+      "Logic--Compare--CompareInt_I3_E1": {
+        "x": 341,
+        "y": 35,
+        "w": 200,
+        "h": 157
+      },
+      "Logic--Compare--CompareString_I1_E1": {
+        "x": 645,
+        "y": 318,
+        "w": 200,
+        "h": 109
+      },
+      "Logic--Compare--CompareString_I2_E1": {
+        "x": 638,
+        "y": -177,
+        "w": 200,
+        "h": 109
+      },
+      "Logic--Counter_I1_E1": {
+        "x": -149,
+        "y": 33,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--Counter_I1_E3": {
+        "x": 868,
+        "y": 27,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--Counter_I5_E1": {
+        "x": -137,
+        "y": 37,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--Counter_I5_E2": {
+        "x": 907,
+        "y": 40,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--Or_I1_E1": {
+        "x": 1424,
+        "y": 309,
+        "w": 200,
+        "h": 59
+      },
+      "Logic--RunWorkflow_I1_E1": {
+        "x": 2466,
+        "y": 272,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--RunWorkflow_I2_E1": {
+        "x": 1249,
+        "y": -8,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--RunWorkflow_I3_E1": {
+        "x": 2362,
+        "y": -22,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--RunWorkflow_I4_E1": {
+        "x": 1663,
+        "y": 226,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--RunWorkflow_I6_E1": {
+        "x": 633,
+        "y": 336,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--Stop_I1_E1": {
+        "x": 68,
+        "y": 604,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--Wait_I1_E1": {
+        "x": 595,
+        "y": 199,
+        "w": 200,
+        "h": 85
+      },
+      "Logic--Wait_I3_E1": {
+        "x": 633,
+        "y": 169,
+        "w": 200,
+        "h": 85
+      },
+      "MCP--McpClient_I1_E1": {
+        "x": 373,
+        "y": 611,
+        "w": 200,
+        "h": 217
+      },
+      "MCP--McpClient_I1_E2": {
+        "x": 298,
+        "y": 49,
+        "w": 200,
+        "h": 217
+      },
+      "Me--MyJSNode_I1_E1": {
+        "x": 293,
+        "y": 53,
+        "w": 200,
+        "h": 59
+      },
+      "Me--MyPyNode_I1_E1": {
+        "x": 291,
+        "y": 36,
+        "w": 200,
+        "h": 85
+      },
+      "UI--Conversation_I1_E1": {
+        "x": 102,
+        "y": 17,
+        "w": 885,
+        "h": 766
+      },
+      "UI--Conversation_I1_E2": {
+        "x": 1463,
+        "y": 6,
+        "w": 200,
+        "h": 134
+      },
+      "UI--Conversation_I1_E3": {
+        "x": 1460,
+        "y": 261,
+        "w": 200,
+        "h": 134
+      },
+      "UI--Conversation_I1_E4": {
+        "x": 144,
+        "y": 71,
+        "w": 200,
+        "h": 134
+      },
+      "UI--Conversation_I1_E5": {
+        "x": 1126,
+        "y": 68,
+        "w": 200,
+        "h": 134
+      }
+    }
+  },
+  "property": {
+    "name": "example_project",
+    "author": "🕶️noddockdev",
+    "version": "v0.1.0",
+    "description": "reference: https://noddock.com/v1/tutorial",
+    "tutorial": "- Read Tutorial in Website \n\n - Open Editor to try",
+    "tags": [
+      "App",
+      "Example"
+    ],
+    "dependencies": [
+      "DeepSeek",
+      "Python"
+    ],
+    "icon_url": "icon.png",
+    "banner_url": "bg.png",
+    "permission": "dangerous",
+    "created_at": "2026-10-22T23:15:49.286754+08:00",
+    "size": 0,
+    "enters": [
+      "UI--Conversation_I1_E1"
+    ]
+  }
+}

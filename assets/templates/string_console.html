@@ -1,0 +1,11 @@
+<head>
+    <link rel="stylesheet" href="/assets/output.css" />
+    <script defer src="/assets/js_ext/alpine@3.14.8.min.js"></script>
+</head>
+
+<body x-data="{params:__params}" @params-updated.window="params = __params" class="bg-black text-green-400 h-screen">
+    <!-- console 风格：等宽字体 + 保留换行（pre-wrap）+ 可滚动，完整显示内容 -->
+    <div id="board" class="w-full h-full p-4 font-mono text-sm whitespace-pre-wrap wrap-break-word overflow-auto"
+        x-text="params.string">
+    </div>
+</body>

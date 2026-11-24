@@ -1,0 +1,27 @@
+{
+  "id": "Me--MyJSNode",
+  "name": "My JS Node",
+  "description": "reverse string1",
+  "parameters": [
+    {
+      "id": "string1",
+      "name": "string1",
+      "kind": "string",
+      "default": "hello",
+      "connect": [
+        "input",
+        "edit"
+      ]
+    },
+    {
+      "id": "string2",
+      "name": "string2",
+      "kind": "string",
+      "default": "",
+      "connect": [
+        "output"
+      ]
+    }
+  ],
+  "run_enter": "main.js"
+}

@@ -1,0 +1,11 @@
+<head>
+    <link rel="stylesheet" href="/assets/output.css" />
+    <script defer src="/assets/js_ext/alpine@3.14.8.min.js"></script>
+</head>
+
+
+<body x-data="{params:__params}" @params-updated.window="params = __params"
+    class="bg-text-primary text-primary h-screen">
+    <div id="board" class="w-full h-full text-yellow-400 bg-black text-2xl whitespace-pre-line" x-text="params.string">
+    </div>
+</body>

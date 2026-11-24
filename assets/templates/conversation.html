@@ -1,0 +1,305 @@
+<head>
+    <link rel="stylesheet" href="/assets/output.css" />
+    <!-- alpine -->
+    <script defer src="/assets/js_ext/alpine@3.14.8.min.js"></script>
+    <style>
+        .msg-content {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .msg-actions {
+            opacity: 0;
+            transition: opacity .15s;
+        }
+
+        .msg-row:hover .msg-actions {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-neutral-900 text-neutral-100 h-screen overflow-hidden" x-data="chatDemo(__params)">
+
+    <div class="flex flex-col h-full">
+        <!-- ═══════════ 顶栏：分页 + Run / Compress / Clear ═══════════ -->
+        <div class="h-14 border-b border-neutral-800 flex items-center px-6 gap-3 text-sm">
+            <span class="font-bold">Chat</span>
+            <button class="bg-neutral-800 hover:bg-neutral-600 px-2 py-1 rounded-md" :disabled="page <= 1"
+                @click="page--">←</button>
+            <span class="text-gray-400"
+                x-text="'page ' + page + ' / ' + totalPages + '  ·  ' + messages.length + ' messages'"></span>
+            <button class="bg-neutral-800 hover:bg-neutral-600 px-2 py-1 rounded-md" :disabled="page >= totalPages"
+                @click="page++">→</button>
+            <div class="flex-1"></div>
+            <button class="bg-neutral-800 hover:bg-neutral-700 px-3 py-2 rounded-lg"
+                @click="runWorkflow(chat_workflow)">
+                ▶ Run
+            </button>
+            <button class="bg-neutral-800 hover:bg-neutral-600 px-3 py-2 rounded-lg" :disabled="compressing"
+                @click="runCompress()">
+                <span x-text="compressing ? 'Compressing…' : '⊞ Compress'"></span>
+            </button>
+            <button class="bg-neutral-800 hover:bg-neutral-600 px-3 py-2 rounded-lg" @click="clearMessages()">
+                Clear
+            </button>
+        </div>
+
+        <!-- ═══════════ 消息区 ═══════════ -->
+        <div class="flex-1 overflow-y-auto flex flex-col-reverse scroll-smooth" x-ref="messages">
+
+            <!-- SSE 预览（DOM 首 = 视觉最下方）：#stream_out 接收 llm_chunk 增量 -->
+            <div class="w-full px-6 pb-4" x-show="streaming">
+                <div class="max-w-2xl mx-auto bg-neutral-800 rounded-lg px-4 py-3">
+                    <div class="text-xs text-gray-400 mb-1">streaming…</div>
+                    <div id="stream_out" x-ref="stream_out" class="msg-content"></div>
+                </div>
+            </div>
+
+            <!-- 消息列表（页内倒序渲染，最新在视觉底部） -->
+            <template x-for="item in pageItems" :key="item.g">
+                <div class="w-full px-6 py-2 msg-row">
+                    <div class="max-w-2xl mx-auto">
+                        <!-- 普通消息（user/assistant/system）：统一样式，#序号 + role 小标签 -->
+                        <template x-if="item.msg.role !== 'tool'">
+                            <div class="bg-neutral-800 rounded-lg px-4 py-3">
+                                <div class="text-xs text-gray-400 mb-1">
+                                    <span class="text-neutral-600 mr-1" x-text="'#' + (item.g + 1)"></span>
+                                    <span x-text="item.msg.role"></span>
+                                </div>
+                                <div class="msg-content" x-text="contentText(item.msg.content)"></div>
+                                <!-- tool 调用（assistant.tool_calls）：折叠展示 -->
+                                <template x-if="item.msg.tool_calls && item.msg.tool_calls.length">
+                                    <div class="mt-2 space-y-1">
+                                        <template x-for="tc in item.msg.tool_calls" :key="tc.id">
+                                            <details
+                                                class="bg-neutral-950 border border-neutral-700 rounded-md px-3 py-2 text-sm">
+                                                <summary class="cursor-pointer text-gray-300"
+                                                    x-text="'🔧 ' + tc.function.name"></summary>
+                                                <div class="msg-content mt-2 text-xs text-gray-400"
+                                                    x-text="tc.function.arguments"></div>
+                                            </details>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                        <!-- tool 消息：输出可压缩（默认折叠） -->
+                        <template x-if="item.msg.role === 'tool'">
+                            <details class="bg-neutral-800 rounded-lg px-4 py-3">
+                                <summary class="cursor-pointer text-xs text-gray-400"
+                                    x-text="'#' + (item.g + 1) + ' ⚙ tool output (' + (item.msg.tool_call_id || '?') + ')'">
+                                </summary>
+                                <div class="msg-content mt-2" x-text="contentText(item.msg.content)"></div>
+                            </details>
+                        </template>
+
+                        <!-- 编辑面板（编辑态时显示在该消息下方） -->
+                        <div x-show="editing === item.g"
+                            class="bg-neutral-950 border border-neutral-700 rounded-lg p-3 space-y-2 mt-2">
+                            <div class="flex items-center gap-3">
+                                <label class="text-sm text-gray-400">role</label>
+                                <select x-model="editDraft.role"
+                                    class="bg-neutral-800 border border-neutral-700 rounded-md px-2 py-1 text-sm">
+                                    <option value="user">user</option>
+                                    <option value="assistant">assistant</option>
+                                    <option value="system">system</option>
+                                    <option value="tool">tool</option>
+                                </select>
+                            </div>
+                            <textarea x-model="editDraft.content" rows="4"
+                                class="w-full bg-neutral-800 border border-neutral-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-emerald-500"></textarea>
+                            <div class="flex gap-2 justify-end">
+                                <button class="bg-neutral-800 hover:bg-neutral-600 px-3 py-1 rounded-md text-sm"
+                                    @click="cancelEdit()">Cancel</button>
+                                <button
+                                    class="bg-emerald-500 hover:bg-emerald-600 text-black px-3 py-1 rounded-md text-sm"
+                                    @click="saveEdit()">Save</button>
+                            </div>
+                        </div>
+
+                        <!-- 操作条（hover 显示）：编辑 / 其后插入 / 删除 -->
+                        <div class="msg-actions flex justify-end gap-1 mt-1">
+                            <button title="edit"
+                                class="w-6 h-6 rounded-md bg-neutral-950 border border-neutral-800 hover:bg-neutral-600 text-sm"
+                                @click="startEdit(item.g)">✎</button>
+                            <button title="add after"
+                                class="w-6 h-6 rounded-md bg-neutral-950 border border-neutral-800 hover:bg-neutral-600 text-sm"
+                                @click="addMessageAfter(item.g)">＋</button>
+                            <button title="delete"
+                                class="w-6 h-6 rounded-md bg-neutral-950 border border-neutral-800 hover:bg-neutral-600 text-sm"
+                                @click="deleteMessage(item.g)">✕</button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- 空状态（DOM 末 = 视觉最上方） -->
+            <div class="w-full text-center text-gray-400 pt-8" x-show="messages.length === 0 && !streaming">
+                No messages yet — type below to start.
+            </div>
+        </div>
+
+        <!-- ═══════════ 输入区（textarea：Enter 换行，Ctrl/Cmd+Enter 发送） ═══════════ -->
+        <div class="border-t border-neutral-800 px-6 py-4">
+            <div class="max-w-2xl mx-auto relative">
+                <textarea x-ref="userInput" x-model="input" rows="2" placeholder="Message...(Ctrl+Enter to send)"
+                    class="w-full bg-neutral-800 text-white rounded-xl px-4 py-3 pr-24 border border-neutral-700 focus:outline-none focus:border-emerald-500 resize-none"
+                    @keydown.ctrl.enter.prevent="addInput()" @keydown.meta.enter.prevent="addInput()"></textarea>
+                <button
+                    class="absolute right-3 bottom-3 bg-emerald-500 hover:bg-emerald-600 text-black text-sm px-4 py-2 rounded-lg"
+                    @click="addInput()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- update 模板的 OOB 落点 -->
+    <div id="update-container"></div>
+
+    <script>
+        function chatDemo(params) {
+            return {
+                ...params,
+                messages: Array.isArray(params.messages) ? params.messages : [],
+                input: "",
+                page: 1,
+                limit: 20,
+                streaming: false, // LLM 流式预览中
+                editing: -1, // 正在编辑的消息全局下标，-1 = 无
+                editDraft: { role: "user", content: "" },
+                // ── 压缩 ──
+                compressing: false,
+
+                // ── 初始化：监听 params-updated 事件，更新全部 params ──
+                init() {
+                    window.addEventListener("params-updated", () => {
+                        // 更新全部 params（workflow / compress_workflow / 其他）
+                        Object.assign(this, __params);
+                        this.updateMessages(__params.messages);
+                    });
+                },
+
+                // ── 分页（页内倒序：最新在前，配合 flex-col-reverse 渲染） ──
+                get pageOffset() { return (this.page - 1) * this.limit },
+                get totalPages() { return Math.max(1, Math.ceil(this.messages.length / this.limit)) },
+                get pageItems() {
+                    const end = Math.min(this.pageOffset + this.limit, this.messages.length);
+                    const items = [];
+                    for (let g = end - 1; g >= this.pageOffset; g--) {
+                        items.push({ msg: this.messages[g], g: g });
+                    }
+                    return items;
+                },
+
+                // ── content 兼容：string 原样；多模态数组提取 text part + 图/文件占位符 ──
+                contentText(c) {
+                    if (typeof c === "string") return c;
+                    if (Array.isArray(c)) {
+                        return c.map(p =>
+                            p.type === "text" ? (p.text || "") :
+                                p.type === "image_url" ? "[image]" :
+                                    p.type === "file" ? `[file: ${(p.file && p.file.filename) || "?"}]` :
+                                        ""
+                        ).join("\n");
+                    }
+                    return "";
+                },
+
+                // ── 输入：本地追加 + 全量同步（Enter 换行，Ctrl/Cmd+Enter 发送） ──
+                addInput() {
+                    const content = this.input.trim();
+                    if (!content) return;
+                    this.messages.push({ role: "user", content: content });
+                    this.input = "";
+                    this.page = this.totalPages;
+                    this.newMessages();
+                    this.scrollToBottom();
+                },
+
+                // ── 编辑（保留 tool_call_id / tool_calls 等附加字段） ──
+                startEdit(index) {
+                    if (index < 0 || index >= this.messages.length) return;
+                    // 多模态消息（content 是数组，含图/文件）：textarea 无法编辑数组，禁用避免丢媒体
+                    if (Array.isArray(this.messages[index].content)) {
+                        alert("This message contains media (image/file). Editing is disabled to avoid losing it.");
+                        return;
+                    }
+                    this.editing = index;
+                    this.editDraft = {
+                        role: this.messages[index].role || "user",
+                        content: this.messages[index].content || "",
+                    };
+                },
+                saveEdit() {
+                    if (this.editing < 0) return;
+                    const old = this.messages[this.editing];
+                    this.messages[this.editing] = { ...old, role: this.editDraft.role, content: this.editDraft.content };
+                    this.editing = -1;
+                    this.newMessages();
+                },
+                cancelEdit() { this.editing = -1 },
+
+                // ── 删除 / 其后插入 ──
+                deleteMessage(index) {
+                    if (index < 0 || index >= this.messages.length) return;
+                    this.messages.splice(index, 1);
+                    if (this.page > this.totalPages) this.page = this.totalPages;
+                    this.newMessages();
+                },
+                addMessageAfter(index) {
+                    this.messages.splice(index + 1, 0, { role: "user", content: "" });
+                    this.newMessages();
+                    this.startEdit(index + 1); // 新消息直接进入编辑态
+                },
+
+                // ── 同步（用 sandbox.js 包装的 __setValue） ──
+                patchParam(key, value) {
+                    return __setValue(key, value);
+                },
+                newMessages() {
+                    // 编辑类操作：PATCH 全量 messages 到节点参数
+                    return this.patchParam("messages", JSON.stringify(this.messages));
+                },
+                updateMessages(newMessages) {
+                    // 后端更新（run 后）：后端为准，整体替换（丢弃未保存的编辑草稿）
+                    this.editing = -1;
+                    this.streaming = false;
+                    this.compressing = false;
+                    if (this.$refs.stream_out) this.$refs.stream_out.innerHTML = "";
+                    if (Array.isArray(newMessages)) this.messages = newMessages;
+                    this.page = this.totalPages;
+                    this.scrollToBottom();
+                },
+
+                // ── 压缩：只触发 compress_workflow，实际处理（加 prompt + LLM 总结 + 替换）在工作流里 ──
+                async runCompress() {
+                    this.compressing = true;
+                    await __runWorkflow(this.compress_workflow);
+                },
+
+                // ── 工作流（用 sandbox.js 包装的 __runWorkflow） ──
+                async runWorkflow(wid) {
+                    this.streaming = true;
+                    await __runWorkflow(wid);
+                },
+
+                clearMessages() {
+                    if (this.messages.length === 0) return;
+                    this.messages = [];
+                    this.page = 1;
+                    this.streaming = false;
+                    if (this.$refs.stream_out) this.$refs.stream_out.innerHTML = "";
+                    this.newMessages();
+                },
+
+                scrollToBottom() {
+                    // flex-col-reverse 下 scrollTop 0 = 视觉底部
+                    this.$nextTick(() => {
+                        const el = this.$refs.messages;
+                        if (el) el.scrollTop = 0;
+                    });
+                },
+            };
+        }
+    </script>
+</body>

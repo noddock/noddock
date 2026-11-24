@@ -1,0 +1,33 @@
+<head>
+    <link rel="stylesheet" href="/assets/output.css" />
+</head>
+
+<body class="bg-neutral-900 text-neutral-100 h-screen">
+    <div class="flex flex-col items-center justify-center h-full gap-4 px-6">
+        <div id="player-box" class="text-sm text-gray-400">Waiting for audio file…</div>
+    </div>
+    <script>
+        // 初始渲染 + params 更新时重渲染播放器
+        function renderPlayer() {
+            const path = __params.path;
+            const volume = __params.volume;
+            const box = document.getElementById("player-box");
+            if (!path) {
+                box.className = "text-sm text-gray-400";
+                box.innerHTML = "Waiting for audio file…";
+                return;
+            }
+            box.className = "flex flex-col items-center gap-4";
+            box.innerHTML = `
+                <div class="text-sm text-gray-400 max-w-full truncate">${path}</div>
+                <audio controls autoplay class="w-96 max-w-full"
+                    src="${path}"></audio>
+            `;
+            const audio = box.querySelector("audio");
+            if (audio) {
+                audio.volume = volume;
+            }
+        }
+        window.addEventListener("params-updated", renderPlayer);
+    </script>
+</body>

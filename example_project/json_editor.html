@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <title>JSON Editor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      padding: 16px;
+    }
+
+    h2 {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    .editor-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 300px;
+      padding: 12px;
+      background: #0f0f1a;
+      color: #7ee787;
+      border: 1px solid #333;
+      border-radius: 6px;
+      font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #06b6d4;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    button {
+      padding: 6px 16px;
+      background: #06b6d4;
+      color: #0b1220;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0891b2;
+    }
+
+    button.secondary {
+      background: #374151;
+      color: #e0e0e0;
+    }
+
+    button.secondary:hover {
+      background: #4b5563;
+    }
+
+    .status {
+      font-size: 12px;
+      color: #666;
+      margin-left: auto;
+    }
+
+    .status.ok {
+      color: #7ee787;
+    }
+
+    .status.err {
+      color: #f85149;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>JSON Editor — 编辑节点的 json 参数</h2>
+  <div class="editor-wrap">
+    <textarea id="json-input" spellcheck="false"></textarea>
+    <div class="toolbar">
+      <button id="btn-save">保存</button>
+      <button id="btn-format" class="secondary">格式化</button>
+      <button id="btn-minify" class="secondary">压缩</button>
+      <span id="status" class="status"></span>
+    </div>
+  </div>
+
+  <script>
+    window.__htmlReqHandler = async (payload) => {
+      if (payload.action === "input") {
+        return { result: "hello！" }
+      }
+      return { value: "result" };
+    };
+    // 从宿主注入的 window.__params 读取初始值
+    const input = document.getElementById('json-input');
+    const status = document.getElementById('status');
+
+    function getInitialJson() {
+      const params = window.__params || {};
+      const raw = params.json;
+      if (typeof raw === 'string') {
+        try { return JSON.stringify(JSON.parse(raw), null, 2); } catch { return raw; }
+      }
+      if (raw && typeof raw === 'object') return JSON.stringify(raw, null, 2);
+      return '{}';
+    }
+
+    function updatePreview() {
+      try {
+        const obj = JSON.parse(input.value);
+      } catch (e) {
+      }
+    }
+
+    function setStatus(msg, ok) {
+      status.textContent = msg;
+      status.className = 'status ' + (ok ? 'ok' : 'err');
+      setTimeout(() => { status.textContent = ''; status.className = 'status'; }, 3000);
+    }
+
+    // 保存：用宿主 __setValue 更新节点的 json 参数
+    async function save() {
+      try {
+        const obj = JSON.parse(input.value);
+        await __setValue('json', JSON.stringify(obj));
+        setStatus('✓ 已保存', true);
+      } catch (e) {
+        setStatus('✗ ' + e.message, false);
+      }
+    }
+
+    function format() {
+      try {
+        input.value = JSON.stringify(JSON.parse(input.value), null, 2);
+        updatePreview();
+      } catch (e) { setStatus('✗ ' + e.message, false); }
+
+      __runWorkflow("wf_woahrl8v")
+    }
+
+    function minify() {
+      try {
+        input.value = JSON.stringify(JSON.parse(input.value));
+        updatePreview();
+      } catch (e) { setStatus('✗ ' + e.message, false); }
+    }
+
+    // 初始化
+    input.value = getInitialJson();
+    updatePreview();
+    input.addEventListener('input', updatePreview);
+    document.getElementById('btn-save').addEventListener('click', save);
+    document.getElementById('btn-format').addEventListener('click', format);
+    document.getElementById('btn-minify').addEventListener('click', minify);
+  </script>
+</body>
+
+</html>
