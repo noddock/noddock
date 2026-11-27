@@ -27,7 +27,7 @@ func init() {
 		ID:                 "Exec--Exec",
 		RequiredPermission: graph.PermissionDangerous,
 		Name:               "Exec",
-		Description:        `Executes a full shell command locally (no whitelist/permission check) \n Run: sh -c <command> (unix) / cmd.exe /c <command> (windows) \n log: combined stdout+stderr (interleaved); trailing [exit code: N] only when non-zero. \n working dir = project workspace \n non-zero exit codes are not run errors; the command is interruptible.`,
+		Description:        `Executes a full shell command locally (no whitelist/permission check) \n Run: $SHELL -ic <command> (unix, interactive login shell, reads .zshrc/.bashrc so PATH/functions/aliases match your terminal) / cmd.exe /c <command> (windows) \n log: combined stdout+stderr (interleaved); trailing [exit code: N] only when non-zero. \n working dir = project workspace \n non-zero exit codes are not run errors; the command is interruptible.`,
 		Plist: []*graph.Parameter{
 			&paramCommand,
 			&paramLog,

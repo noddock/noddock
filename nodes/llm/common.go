@@ -1,12 +1,15 @@
 package nodes
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"os"
 	"sort"
 	"strings"
 
 	"github.com/noddock/noddock/runtime/graph"
+	"github.com/noddock/noddock/runtime/tool/fo"
 )
 
 // payload 是 OpenAI /chat/completions 请求体。
@@ -161,4 +164,85 @@ func finalizeToolCalls(agg []streamToolCall) []graph.ToolCall {
 		calls = append(calls, call)
 	}
 	return calls
+}
+
+// resolveMediaURL 解析 message 里的媒体 URL（image_url.url / file.file_data）：
+// 相对/绝对文件路径 → 解析到 workspace，读文件转 base64，返回 data URL；找不到（不存在/路径穿越/读取失败）→ 返回 ("", false)，调用方跳过该 part。
+func resolveMediaURL(nRT graph.NodeRunTool, url string) (string, bool) {
+	if url == "" {
+		return "", false
+	}
+	if strings.HasPrefix(url, "data:") {
+		return url, true
+	}
+	if strings.HasPrefix(url, "http://") || strings.HasPrefix(url, "https://") {
+		return url, true
+	}
+	// 文件路径：严格解析（allowSymlink=false 防逃逸 + 要求存在）
+	abs, err := fo.GetPath(url, nRT.GetPID(), true, false)
+	if err != nil {
+		return "", false
+	}
+	raw, err := os.ReadFile(abs)
+	if err != nil {
+		return "", false
+	}
+	mime, _ := mediaMime(url)
+	return fmt.Sprintf("data:%s;base64,%s", mime, base64.StdEncoding.EncodeToString(raw)), true
+}
+
+// resolveMessagesMedia 就地解析所有 message 里的媒体 URL（image_url/file part）。
+func resolveMessagesMedia(nRT graph.NodeRunTool, messages []PayMessage) {
+	for i := range messages {
+		parts, ok := messages[i].Content.([]any)
+		if !ok {
+			continue // 纯文本（string）无媒体
+		}
+		newParts := make([]any, 0, len(parts))
+		for _, p := range parts {
+			pm, ok := p.(map[string]any)
+			if !ok {
+				newParts = append(newParts, p)
+				continue
+			}
+			switch pm["type"] {
+			case "image_url":
+				iu, ok := pm["image_url"].(map[string]any)
+				if !ok {
+					newParts = append(newParts, p)
+					continue
+				}
+				if u, ok := iu["url"].(string); ok {
+					if resolved, found := resolveMediaURL(nRT, u); found {
+						iu["url"] = resolved
+						newParts = append(newParts, p)
+					}
+					// found=false → 跳过（不添加）
+				} else {
+					newParts = append(newParts, p)
+				}
+			case "file":
+				f, ok := pm["file"].(map[string]any)
+				if !ok {
+					newParts = append(newParts, p)
+					continue
+				}
+				if u, ok := f["file_data"].(string); ok {
+					if resolved, found := resolveMediaURL(nRT, u); found {
+						f["file_data"] = resolved
+						newParts = append(newParts, p)
+					}
+				} else {
+					newParts = append(newParts, p)
+				}
+			default:
+				newParts = append(newParts, p)
+			}
+		}
+		if len(newParts) == 0 {
+			messages[i].Content = ""
+		} else {
+			messages[i].Content = newParts
+		}
+	}
 }

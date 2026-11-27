@@ -6,7 +6,9 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"sync"
 	"syscall"
 	"time"
@@ -47,12 +49,36 @@ func NewCmdFull(ctx context.Context, dir, name string, args ...string) *exec.Cmd
 	return cmd
 }
 
-// 创建 sh -c 命令（工作目录 dir，独立进程组便于整树 kill）。
+// 创建 shell 子进程（工作目录 dir），并放入独立进程组（Setpgid）。
 func NewShellCmd(ctx context.Context, command, dir string) *exec.Cmd {
-	cmd := NewCmd(ctx, "sh", "-c", command)
+	shell, interactive := resolveShell()
+	var cmd *exec.Cmd
+	if interactive {
+		cmd = NewCmd(ctx, shell, "-ic", command)
+	} else {
+		cmd = NewCmd(ctx, shell, "-c", command)
+	}
 	cmd.Dir = dir
 	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 	return cmd
+}
+
+// resolveShell 返回用户的登录 shell，获取完整环境
+func resolveShell() (string, bool) {
+	if sh := os.Getenv("SHELL"); sh != "" {
+		if _, err := os.Stat(sh); err == nil {
+			switch filepath.Base(sh) {
+			case "zsh", "bash":
+				return sh, true
+			default:
+				return sh, false
+			}
+		}
+	}
+	if bashPath, err := exec.LookPath("bash"); err == nil {
+		return bashPath, true
+	}
+	return "sh", false
 }
 
 // 把已创建的 *exec.Cmd 包装成常驻 Terminal（stdin/stdout/stderr 管道 + done 通道 + stderr 收集），NewTerminal 与 NewTerminalDirect 共用。

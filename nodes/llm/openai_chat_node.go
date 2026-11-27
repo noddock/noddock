@@ -104,6 +104,14 @@ func init() {
 			if err := json.Unmarshal(messagesJson, &messages); err != nil {
 				return fmt.Errorf("LLM OpenAI: prompt must be a messages array: %w", err)
 			}
+			// 深拷贝一份用于请求：解析媒体 URL（
+			var requestMessages []PayMessage
+			if b, err := json.Marshal(messages); err == nil {
+				_ = json.Unmarshal(b, &requestMessages)
+			} else {
+				requestMessages = messages
+			}
+			resolveMessagesMedia(nRT, requestMessages)
 			var tools []json.RawMessage
 			if len(toolsJson) > 2 {
 				if err := json.Unmarshal(toolsJson, &tools); err != nil {
@@ -131,10 +139,10 @@ func init() {
 				}
 			}
 
-			// 3. 构建请求
+			// 3. 构建请求（用解析后的 requestMessages，媒体已是 base64）
 			reqBody := payload{
 				Model:    model,
-				Messages: messages,
+				Messages: requestMessages,
 				Stream:   streaming,
 				Tools:    tools,
 			}

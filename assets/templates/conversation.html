@@ -67,7 +67,25 @@
                                     <span class="text-neutral-600 mr-1" x-text="'#' + (item.g + 1)"></span>
                                     <span x-text="item.msg.role"></span>
                                 </div>
-                                <div class="msg-content" x-text="contentText(item.msg.content)"></div>
+                                <!-- content：string→纯文本；多模态数组→逐 part 渲染（text/image/file） -->
+                                <template x-if="typeof item.msg.content === 'string'">
+                                    <div class="msg-content" x-text="item.msg.content"></div>
+                                </template>
+                                <template x-if="Array.isArray(item.msg.content)">
+                                    <div class="space-y-2">
+                                        <template x-for="(part, pi) in item.msg.content" :key="pi">
+                                            <div>
+                                                <div class="msg-content" x-show="part.type === 'text'"
+                                                    x-text="part.text || ''"></div>
+                                                <img x-show="part.type === 'image_url'"
+                                                    :src="mediaSrc(part.image_url && part.image_url.url)"
+                                                    class="max-w-full max-h-20 rounded-md" alt="image" />
+                                                <div class="text-xs text-gray-400" x-show="part.type === 'file'"
+                                                    x-text="'📎 ' + ((part.file && part.file.filename) || '?')"></div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
                                 <!-- tool 调用（assistant.tool_calls）：折叠展示 -->
                                 <template x-if="item.msg.tool_calls && item.msg.tool_calls.length">
                                     <div class="mt-2 space-y-1">
@@ -203,6 +221,15 @@
                         ).join("\n");
                     }
                     return "";
+                },
+
+                // ── 媒体 URL → <img> src：data/绝对 URL 原样；相对路径 → 项目根解析（?relativeToProject=true） ──
+                mediaSrc(url) {
+                    if (!url) return "";
+                    if (url.startsWith("data:") || url.startsWith("http://") || url.startsWith("https://")) {
+                        return url;
+                    }
+                    return __projectFile(url, true);
                 },
 
                 // ── 输入：本地追加 + 全量同步（Enter 换行，Ctrl/Cmd+Enter 发送） ──
